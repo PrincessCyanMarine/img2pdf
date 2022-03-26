@@ -11,6 +11,11 @@ import { loadImage } from "canvas";
 
 let exit = false;
 
+let limitWidth: number | null = parseInt(process.argv[2]);
+if (!limitWidth || isNaN(limitWidth) || !isFinite(limitWidth))
+  limitWidth = null;
+console.log(limitWidth);
+
 if (!existsSync("output")) mkdirSync("output");
 if (!existsSync("input")) {
   mkdirSync("input");
@@ -95,6 +100,11 @@ async function nextPage(
       let path = `${resolve(file.dir)}\\${file.name}${file.ext}`;
       let image = await loadImage(path);
       let [width, height] = [image.width, image.height];
+
+      if (limitWidth) {
+        height = (height / width) * limitWidth;
+        width = limitWidth;
+      }
 
       doc.addPage({ size: [width, height], margin: 0 }).image(path, {
         fit: [width, height],
