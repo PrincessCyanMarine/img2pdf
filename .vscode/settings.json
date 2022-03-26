@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/package-lock.json": true,
+    "**/yarn.lock": true,
+    "**/.vscode": true,
+    "**/.git": true,
+    "**/dist": true
+  }
+}
